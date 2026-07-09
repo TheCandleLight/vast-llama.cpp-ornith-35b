@@ -53,12 +53,14 @@ jobs:
             type=raw,value=${{ inputs.version }}
             type=raw,value=latest
 
+      - name: Set up Docker builder
+        uses: useblacksmith/setup-docker-builder@v1
+
       - name: Build and push Docker image
         uses: useblacksmith/build-push-action@v2
         with:
           context: .
           push: true
-          outputs: type=image,compression=zstd,compression-level=19,force-compression=true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
